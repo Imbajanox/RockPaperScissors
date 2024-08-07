@@ -24,6 +24,10 @@ function getComputerChoice() {
 
 
 function playRound(humanChoice, computerChoice) {
+    if(humanScore == 5 || computerScore == 5)
+    {
+        return;
+    }
     switch (humanChoice) {
         case "rock":
             switch (computerChoice) {
@@ -101,11 +105,21 @@ function playRound(humanChoice, computerChoice) {
 
 }
 
+function afterRound(){
+    labelPoints.textContent = humanScore + " / " + computerScore;
+    if(humanScore == 5)
+    {
+        labelWinner.textContent = "You won the game!";
+    }
+    if(computerScore == 5)
+    {
+        labelWinner.textContent = "You lost the game!";
+    }
+}
 
-
-const rockButton = document.querySelector("#rockBtn").addEventListener("click", function() {playRound("rock", getComputerChoice()); labelPoints.textContent = humanScore + " / " + computerScore;});
-const paperButton = document.querySelector("#paperBtn").addEventListener("click", function() {playRound("paper", getComputerChoice()); labelPoints.textContent = humanScore + " / " + computerScore;});
-const scissorsButton = document.querySelector("#scissorsBtn").addEventListener("click", function() {playRound("scissors", getComputerChoice()); labelPoints.textContent = humanScore + " / " + computerScore;});
+const rockButton = document.querySelector("#rockBtn").addEventListener("click", function() {playRound("rock", getComputerChoice());afterRound();});
+const paperButton = document.querySelector("#paperBtn").addEventListener("click", function() {playRound("paper", getComputerChoice());afterRound();});
+const scissorsButton = document.querySelector("#scissorsBtn").addEventListener("click", function() {playRound("scissors", getComputerChoice());afterRound();});
 
 const labelWinner = document.querySelector("#winner");
 const labelPoints = document.querySelector("#points")
