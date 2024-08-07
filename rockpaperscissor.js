@@ -28,19 +28,19 @@ function playRound(humanChoice, computerChoice) {
         case "rock":
             switch (computerChoice) {
                 case "rock":
-                    label.textContent = "Draw";
+                    labelWinner.textContent = "Draw";
                     return "Draw! Rock against Rock!";
                     break;
                 
                 case "paper":
                     computerScore++;
-                    label.textContent = "You loose";
+                    labelWinner.textContent = "You loose";
                     return "You loose! Paper beats Rock!";
                     break;
                     
                 case "scissors":
                     humanScore++;
-                    label.textContent = "You win";
+                    labelWinner.textContent = "You win";
                     return "You win! Rock beats Scissors!";
                     
                     break;
@@ -52,13 +52,16 @@ function playRound(humanChoice, computerChoice) {
         case "paper":
             switch (computerChoice) {
                 case "rock":
+                    labelWinner.textContent = "You win";
                     humanScore++;
                     return "You win! Paper beats Rock!";
                     break;
                 case "paper":
+                    labelWinner.textContent = "Draw";
                     return "Draw! Paper against Paper!";
                     break;
                 case "scissors":
+                    labelWinner.textContent = "You loose";
                     computerScore++;
                     return "You loose! Scissors beat Paper!";
                     break;
@@ -70,15 +73,18 @@ function playRound(humanChoice, computerChoice) {
         case "scissors":
             switch (computerChoice) {
                 case "rock":
+                    labelWinner.textContent = "You loose";
                     computerScore++;
                     return "You loose! Rock beats Scissors!";     
                     break;
                 case "paper":
+                    labelWinner.textContent = "You win";
                     humanScore++;
                     return "You win! Paper beats Scissors!";
 
                     break;
                 case "scissors":
+                    labelWinner.textContent = "Draw";
                     return "Draw! Scissors agains Scissors!";
                     break;
                 default:
@@ -90,11 +96,16 @@ function playRound(humanChoice, computerChoice) {
             return "default";
 
     }
+
+    
+
 }
 
 
-const rockButton = document.querySelector("#rockBtn").addEventListener("click", function() {playRound("rock", getComputerChoice);});
-const paperButton = document.querySelector("#paperBtn").addEventListener("click", function() {playRound("paper", getComputerChoice);});
-const scissorsButton = document.querySelector("#scissorsBtn").addEventListener("click", function() {playRound("scissors", getComputerChoice);});
 
-const label = document.querySelector("label");
+const rockButton = document.querySelector("#rockBtn").addEventListener("click", function() {playRound("rock", getComputerChoice()); labelPoints.textContent = humanScore + " / " + computerScore;});
+const paperButton = document.querySelector("#paperBtn").addEventListener("click", function() {playRound("paper", getComputerChoice()); labelPoints.textContent = humanScore + " / " + computerScore;});
+const scissorsButton = document.querySelector("#scissorsBtn").addEventListener("click", function() {playRound("scissors", getComputerChoice()); labelPoints.textContent = humanScore + " / " + computerScore;});
+
+const labelWinner = document.querySelector("#winner");
+const labelPoints = document.querySelector("#points")
