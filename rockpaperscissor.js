@@ -1,4 +1,6 @@
 
+let humanScore = 0;
+let computerScore = 0;
 
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3);
@@ -20,18 +22,69 @@ function getComputerChoice() {
 
 }
 
-function getHumanChoice() {
-    let humanChoice = prompt("Rock, paper or scissors?")
 
-    switch (humanChoice.toLowerCase()) {
+function playRound(humanChoice, computerChoice) {
+    switch (humanChoice) {
         case "rock":
-            return "rock";
+            switch (computerChoice) {
+                case "rock":
+                    label.textContent = "Draw";
+                    return "Draw! Rock against Rock!";
+                    break;
+                
+                case "paper":
+                    computerScore++;
+                    label.textContent = "You loose";
+                    return "You loose! Paper beats Rock!";
+                    break;
+                    
+                case "scissors":
+                    humanScore++;
+                    label.textContent = "You win";
+                    return "You win! Rock beats Scissors!";
+                    
+                    break;
+                default:
+                    return "default";
+        
+            }
             break;
         case "paper":
-            return "paper";
+            switch (computerChoice) {
+                case "rock":
+                    humanScore++;
+                    return "You win! Paper beats Rock!";
+                    break;
+                case "paper":
+                    return "Draw! Paper against Paper!";
+                    break;
+                case "scissors":
+                    computerScore++;
+                    return "You loose! Scissors beat Paper!";
+                    break;
+                default:
+                    return "default";
+        
+            }
             break;
         case "scissors":
-            return "scissors";
+            switch (computerChoice) {
+                case "rock":
+                    computerScore++;
+                    return "You loose! Rock beats Scissors!";     
+                    break;
+                case "paper":
+                    humanScore++;
+                    return "You win! Paper beats Scissors!";
+
+                    break;
+                case "scissors":
+                    return "Draw! Scissors agains Scissors!";
+                    break;
+                default:
+                    return "default";
+        
+            }
             break;
         default:
             return "default";
@@ -40,90 +93,8 @@ function getHumanChoice() {
 }
 
 
+const rockButton = document.querySelector("#rockBtn").addEventListener("click", function() {playRound("rock", getComputerChoice);});
+const paperButton = document.querySelector("#paperBtn").addEventListener("click", function() {playRound("paper", getComputerChoice);});
+const scissorsButton = document.querySelector("#scissorsBtn").addEventListener("click", function() {playRound("scissors", getComputerChoice);});
 
-function playGame(){
-    let humanScore = 0;
-    let computerScore = 0;
-
-    function playRound(humanChoice, computerChoice) {
-        switch (humanChoice) {
-            case "rock":
-                switch (computerChoice) {
-                    case "rock":
-                        return "Draw! Rock against Rock!";
-                        break;
-                    case "paper":
-                        computerScore++;
-                        return "You loose! Paper beats Rock!";
-                        break;
-                    case "scissors":
-                        humanScore++;
-                        return "You win! Rock beats Scissors!";
-                        break;
-                    default:
-                        return "default";
-            
-                }
-                break;
-            case "paper":
-                switch (computerChoice) {
-                    case "rock":
-                        humanScore++;
-                        return "You win! Paper beats Rock!";
-                        break;
-                    case "paper":
-                        return "Draw! Paper against Paper!";
-                        break;
-                    case "scissors":
-                        computerScore++;
-                        return "You loose! Scissors beat Paper!";
-                        break;
-                    default:
-                        return "default";
-            
-                }
-                break;
-            case "scissors":
-                switch (computerChoice) {
-                    case "rock":
-                        computerScore++;
-                        return "You loose! Rock beats Scissors!";     
-                        break;
-                    case "paper":
-                        humanScore++;
-                        return "You win! Paper beats Scissors!";
-
-                        break;
-                    case "scissors":
-                        return "Draw! Scissors agains Scissors!";
-                        break;
-                    default:
-                        return "default";
-            
-                }
-                break;
-            default:
-                return "default";
-    
-        }
-    }
-
-
-    for (let i = 0; i < 5; i++){
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-
-        console.log(playRound(humanChoice, computerChoice));
-    }
-    console.log("Your Score is: " + humanScore);
-    console.log("The Computer's score is: " + computerScore);
-    if(humanScore > computerScore){
-        console.log("You Win!!!");
-    } else if(computerScore > humanScore){
-        console.log("You Loose!!!")
-    } else {
-        console.log("Draw!!!")
-    }
-}
-
-playGame();
+const label = document.querySelector("label");
